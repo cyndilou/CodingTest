@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Student App</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script>
+        var uri = 'api/students';
+
+        $(document).ready(function () {
+
+            $("#btnLoadStudents").click(function () {
+                $.ajax(uri).done(function (data) {
+                    var display = "";
+                    $.each(data, function (key, item) {
+                        display += formatStudent(item) + "\n";
+                    });
+
+                    $("#txtStudentList").val(display);
+                });
+            });
+
+        });
+
+        function formatStudent(student) {
+            return student.Name + "\n" +
+                student.Type + "\n" +
+                student.PhoneNumber + "\n" +
+                student.Address + "\n";
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Student App</h1>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" id="btnLoadStudents">Load Students</button>
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" rows="30" id="txtStudentList"></textarea>
+        </div>
+    </div>
+</body>
+</html>
